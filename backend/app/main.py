@@ -1,34 +1,28 @@
 # Libs
+from pathlib import Path
+
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
-from pathlib import Path
 from sqlalchemy import text
 
-# Database
-from app.db.db import engine, Base
-
-# Data Model
-from app.models import (
-    Domain,
-    MeditationElement,
-    Intent,
-    MeditationSession,
-    SessionElement,
-)
+from app.api.circle import router as circle_router
 
 # Routers
 from app.api.intent import router as intents_router
+from app.api.me import router as me_router
 from app.api.meditation_element import router as elements_router
-from app.api.meditation_session import router as session_router
-from app.api.auth import router as auth_router
+from app.api.sessions import router as session_router
+from app.config.config import settings
 
+# Database
+from app.db.db import engine
 
-app = FastAPI(title="Breather API")
+app = FastAPI(title="Stay API")
 
 # add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -37,8 +31,8 @@ app.add_middleware(
 app.include_router(intents_router)
 app.include_router(elements_router)
 app.include_router(session_router)
-# temp user router at /api/auth/me
-app.include_router(auth_router)
+app.include_router(me_router)
+app.include_router(circle_router)
 
 @app.get("/health")
 def health():

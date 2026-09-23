@@ -1,0 +1,42 @@
+.wordmark {
+  align-self: center;
+  font-size: 11px;
+  letter-spacing: 0.44em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-left: 0.44em;
+}
+
+.centre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+}
+
+.figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tagline {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 28px;
+  line-height: 1.42;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink-soft);
+  text-align: center;
+  max-width: 250px;
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+}

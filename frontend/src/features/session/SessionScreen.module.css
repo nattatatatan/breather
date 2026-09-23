@@ -1,0 +1,63 @@
+/* Scene-specific background composition. Generic session chrome lives in SessionStage.module.css. */
+
+.centeredError {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+}
+
+.softGlow {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(250, 249, 246, 0.55) 44%, rgba(244, 242, 237, 0) 70%);
+}
+
+.nightGlow {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(231, 227, 219, 0.16) 0%, rgba(180, 174, 163, 0.08) 44%, rgba(12, 11, 10, 0) 72%);
+}
+
+.campfireGround {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 92px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--dur-calm) ease;
+}
+
+.flameStage {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flamePosition {
+  position: absolute;
+  left: 50%;
+  bottom: 200px;
+  transform: translateX(-50%);
+}
+
+.flameScale {
+  transform-origin: 50% 100%;
+  transition: transform var(--dur-calm) ease;
+}

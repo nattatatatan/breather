@@ -1,0 +1,61 @@
+.wordmark {
+  font-size: 11px;
+  letter-spacing: 0.44em;
+  padding-left: 0.44em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 72px 0 44px;
+}
+
+.title {
+  font-family: var(--serif);
+  font-size: 40px;
+  line-height: 1.12;
+  font-weight: 300;
+  color: var(--ink);
+}
+
+.form {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.error {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--accent);
+}
+
+.notice {
+  flex-grow: 1;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.switch {
+  appearance: none;
+  align-self: center;
+  margin-top: 26px;
+  min-height: var(--tap);
+  padding: 0 12px;
+  background: none;
+  border: none;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.switch:hover {
+  color: var(--accent);
+}

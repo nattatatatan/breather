@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Fire kasina session</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body { margin: 0; background: #0C0B0A; font-family: 'Jost', system-ui, sans-serif; color: #F3EFE8; }
+a { color: #F3EFE8; text-decoration: none; }
+a:hover { color: #E08B3E; }
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #0C0B0A; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+
+  <div style="position: absolute; top: 60px; left: 0; right: 0; text-align: center; font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase; color: #8A8178; {{chromeStyle}}">Fire · staying</div>
+
+  <div style="position: relative; width: 390px; height: 460px; display: flex; align-items: center; justify-content: center;">
+
+    <div style="position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%); {{glowStyle}}"></div>
+
+    <div style="position: absolute; left: 0; right: 0; bottom: 92px; height: 200px; {{sceneStyle}}">
+      <svg sc-camel-view-box="0 0 390 200" width="390" height="200" aria-hidden="true" style="display: block;">
+        <ellipse cx="195" cy="168" rx="158" ry="26" fill="#17140F"></ellipse>
+        <ellipse cx="110" cy="164" rx="16" ry="9" fill="#232019"></ellipse>
+        <ellipse cx="148" cy="174" rx="19" ry="10" fill="#2A261E"></ellipse>
+        <ellipse cx="243" cy="174" rx="19" ry="10" fill="#2A261E"></ellipse>
+        <ellipse cx="281" cy="164" rx="16" ry="9" fill="#232019"></ellipse>
+        <rect x="126" y="140" width="140" height="16" rx="8" fill="#3B2E22" transform="rotate(-11 196 148)"></rect>
+        <rect x="126" y="146" width="140" height="16" rx="8" fill="#332719" transform="rotate(10 196 154)"></rect>
+        <path d="M150 150 C176 146 216 146 242 150" fill="none" stroke="#5A4530" stroke-width="1.4" stroke-linecap="round"></path>
+        <circle cx="128" cy="96" r="2" fill="#E08B3E" opacity="0.55"></circle>
+        <circle cx="262" cy="74" r="1.6" fill="#E08B3E" opacity="0.4"></circle>
+        <circle cx="240" cy="40" r="1.4" fill="#F6D08A" opacity="0.35"></circle>
+      </svg>
+    </div>
+
+    <div style="position: absolute; left: 50%; bottom: 200px; transform: translateX(-50%);">
+      <div style="{{flameStyle}}">
+        <svg sc-camel-view-box="0 0 200 260" width="176" height="229" role="img" aria-label="A single flame" style="display: block;">
+          <path d="M100 14 C122 66 154 88 154 140 C154 182 130 212 100 212 C70 212 46 182 46 140 C46 88 78 66 100 14 Z" fill="#8E3A18" opacity="0.55"></path>
+          <path d="M100 44 C118 84 142 102 142 142 C142 176 124 200 100 200 C76 200 58 176 58 142 C58 102 82 84 100 44 Z" fill="#C0562A"></path>
+          <path d="M100 86 C112 114 128 126 128 152 C128 176 116 192 100 192 C84 192 72 176 72 152 C72 126 88 114 100 86 Z" fill="#E08B3E"></path>
+          <path d="M100 130 C107 148 115 156 115 170 C115 182 108 190 100 190 C92 190 85 182 85 170 C85 156 93 148 100 130 Z" fill="#F6D08A"></path>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="position: absolute; bottom: 104px; left: 0; right: 0; text-align: center; {{hintStyle}}">
+    <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 300; font-size: 19px; color: #A79C8D;">Let the room go. Keep the flame.</div>
+  </div>
+
+  <div style="position: absolute; bottom: 52px; left: 0; right: 0; display: flex; justify-content: center;">
+    <button type="button" style="appearance: none; background: none; border: none; padding: 12px 20px; margin: 0; min-height: 44px; font-family: 'Jost', system-ui, sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #8A8178; cursor: pointer;">Hold to end</button>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;progress&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:58,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Session&quot;},&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  renderVals() {
+    var raw = this.props.progress;
+    if (typeof raw !== 'number') { raw = 58; }
+    var p = Math.max(0, Math.min(100, raw)) / 100;
+    var scene = Math.max(0, 1 - p * 1.45);
+    var flame = 1 - 0.66 * p;
+    var glow = Math.round(360 - 230 * p);
+    var glowAlpha = (0.30 - 0.17 * p).toFixed(3);
+    return {
+      sceneStyle: 'opacity: ' + scene.toFixed(3) + '; transition: opacity 900ms ease;',
+      flameStyle: 'transform: scale(' + flame.toFixed(3) + '); transform-origin: 50% 100%; transition: transform 900ms ease;',
+      glowStyle: 'width: ' + glow + 'px; height: ' + glow + 'px; border-radius: 50%; background: radial-gradient(circle, rgba(224,139,62,' + glowAlpha + ') 0%, rgba(192,86,42,0.10) 44%, rgba(12,11,10,0) 72%);',
+      hintStyle: 'opacity: ' + Math.max(0, 1 - p * 2.4).toFixed(3) + '; transition: opacity 900ms ease;',
+      chromeStyle: 'opacity: ' + Math.max(0.15, 1 - p * 1.8).toFixed(3) + ';'
+    };
+  }
+}
+</script>
+
+
+</body></html>

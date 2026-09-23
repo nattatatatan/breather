@@ -1,5 +1,6 @@
-from app.models.domain import Domain
 from pydantic import BaseModel
+
+from app.models.domain import Domain
 
 
 class MeditationElementResponse(BaseModel):

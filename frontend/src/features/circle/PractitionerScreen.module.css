@@ -1,0 +1,178 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.name {
+  display: block;
+  font-family: var(--serif);
+  font-size: 32px;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.since {
+  display: block;
+  margin-top: 3px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.bio {
+  margin: 0 0 26px;
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.5;
+  font-weight: 300;
+  color: var(--prose);
+  text-wrap: pretty;
+}
+
+.stats {
+  display: flex;
+  gap: 1px;
+  margin-bottom: 26px;
+  background: var(--divider);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.stat {
+  flex-grow: 1;
+  padding: 14px 12px;
+  background: var(--surface);
+  text-align: center;
+}
+
+.statValue {
+  font-family: var(--serif);
+  font-size: 26px;
+  color: var(--ink);
+}
+
+.statLabel {
+  margin-top: 3px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sectionLabel {
+  margin-bottom: 14px;
+}
+
+.modes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.modeRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.modeName {
+  width: 82px;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.modeBar {
+  display: block;
+  flex-grow: 1;
+  height: 6px;
+  background: var(--divider);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.modeFillPrimary,
+.modeFillSecondary {
+  display: block;
+  height: 6px;
+}
+
+.modeFillPrimary {
+  background: var(--accent);
+}
+
+.modeFillSecondary {
+  background: var(--bar-secondary);
+}
+
+.modePct {
+  width: 34px;
+  text-align: right;
+  font-size: 12px;
+  color: var(--text);
+}
+
+.objects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+
+.objectPrimary,
+.objectPill {
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-size: 12.5px;
+}
+
+.objectPrimary {
+  background: var(--surface-selected);
+  color: var(--ink);
+}
+
+.objectPill {
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+
+.sharedLabel {
+  margin-bottom: 4px;
+}
+
+.sharedList {
+  display: flex;
+  flex-direction: column;
+}
+
+.sharedRow {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--divider);
+}
+
+.sharedRow:hover .sharedLine {
+  color: var(--accent);
+}
+
+.sharedDay {
+  width: 58px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.sharedLine {
+  flex-grow: 1;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.sharedDuration {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--ink);
+}

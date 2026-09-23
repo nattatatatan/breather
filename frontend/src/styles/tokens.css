@@ -1,0 +1,62 @@
+/*
+ * Design tokens for Stay, lifted 1:1 from docs/ui-design.html.
+ * Components reference these variables; raw hex values should not appear elsewhere
+ * except inside illustration SVGs (src/art), which carry their own palettes.
+ */
+:root {
+  /* Surfaces */
+  --bg: #faf9f6;               /* app background */
+  --bg-still: #f4f2ed;         /* still-image session background */
+  --bg-night: #0c0b0a;         /* fire / dark session background */
+  --bg-header: #f1efe9;        /* circle hours illustration band */
+  --surface: #ffffff;          /* cards */
+  --surface-selected: #f1eee7; /* selected row / card */
+  --surface-warm: #fbf4ee;     /* selected object tile */
+  --surface-quiet: #f6f4ef;    /* featured/attached thread card tint */
+
+  /* Ink */
+  --ink: #1c1b17;              /* primary text, borders of primary buttons */
+  --ink-soft: #2e2c26;         /* home tagline */
+  --text: #55534c;             /* body copy */
+  --prose: #33312b;            /* long-form post/reply/quote body copy (thread posts, notes, bios) */
+  --muted: #6e6b62;            /* secondary text, eyebrows */
+  --faint: #9a958b;            /* chevrons, tertiary */
+  --ghost: #c6c1b7;            /* inactive dots */
+
+  /* Lines */
+  --line: #e4e0d8;             /* card borders, tab rules */
+  --divider: #ebe7df;          /* list dividers */
+  --chip-line: #dad5cc;        /* pill outlines */
+
+  /* Accent */
+  --accent: #b04a22;           /* the one warm accent */
+  --warm: #8a6a52;             /* "read your sitting" note, warmth marker */
+  --bar-secondary: #a9a296;    /* non-primary fill in a split bar (e.g. secondary practice mode) */
+
+  /* Night palette (fire session) */
+  --night-text: #8a8178;
+  --night-hint: #a79c8d;
+
+  /* Session progress line (a quiet 2px indicator; never a number) */
+  --progress-track-light: #dedad1;
+  --progress-track-night: #262019;
+
+  /* Type */
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Jost', system-ui, sans-serif;
+
+  /* Layout */
+  --screen-max: 430px;         /* phone column width on larger viewports */
+  --gutter: 28px;
+  --pad-top: 56px;
+  --pad-bottom: 38px;
+  --tap: 44px;                 /* minimum tap target */
+  --button-h: 56px;
+  --radius-card: 3px;
+  --radius-button: 2px;
+
+  /* Motion */
+  --ease-calm: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-quick: 180ms;
+  --dur-calm: 900ms;
+}

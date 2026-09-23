@@ -1,7 +1,6 @@
 from app.db.db import SessionLocal
 from app.models.intent import Intent
 
-
 intents = [
     Intent(
         name="Calm",
@@ -37,6 +36,11 @@ intents = [
         name="Gratitude",
         slug="gratitude",
         description="Cultivate appreciation and gratitude.",
+    ),
+    Intent(
+        name="Devotion",
+        slug="devotion",
+        description="Cultivate confidence and reverence.",
     ),
 ]
 

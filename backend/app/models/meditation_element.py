@@ -1,5 +1,6 @@
+from sqlalchemy import Enum as SQLEnum
+from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import Enum as SQLEnum, String
 
 from app.db.db import Base
 from app.models.domain import Domain

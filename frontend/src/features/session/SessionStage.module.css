@@ -1,0 +1,271 @@
+.stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+}
+
+.topChrome {
+  position: absolute;
+  top: max(58px, calc(env(safe-area-inset-top) + 30px));
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ghost);
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.eyebrow.night {
+  color: var(--night-text);
+}
+
+.timer {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.timer.light {
+  color: var(--muted);
+}
+
+.timer.night {
+  color: var(--night-text);
+}
+
+.figureWrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hint {
+  position: absolute;
+  bottom: 104px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0 32px;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 19px;
+  pointer-events: none;
+}
+
+.hint.light {
+  color: var(--muted);
+}
+
+.hint.night {
+  color: var(--night-hint);
+}
+
+.holdWrap {
+  position: absolute;
+  bottom: 52px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.holdButton {
+  appearance: none;
+  position: relative;
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  margin: 0;
+  min-height: var(--tap);
+  min-width: var(--tap);
+  font-family: var(--sans);
+  font-size: 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.holdButton.light {
+  color: var(--muted);
+}
+
+.holdButton.night {
+  color: var(--night-hint);
+}
+
+.holdFillTrack {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 9px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.holdFill {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(var(--hold-progress, 0));
+  transform-origin: left center;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.progressFill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+}
+
+.progressFill.light {
+  background: var(--progress-track-light);
+}
+
+.progressFill.night {
+  background: var(--progress-track-night);
+}
+
+.ripple {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin-left: -32px;
+  margin-top: -32px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  pointer-events: none;
+}
+
+.ripple.light {
+  color: var(--muted);
+}
+
+.ripple.night {
+  color: var(--night-hint);
+}
+
+.leaveOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 0 40px;
+  text-align: center;
+  background: rgba(244, 242, 237, 0.94);
+}
+
+.leaveOverlay.night {
+  background: rgba(12, 11, 10, 0.88);
+}
+
+.leaveText {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 19px;
+  max-width: 260px;
+  color: var(--text);
+}
+
+.leaveOverlay.night .leaveText {
+  color: var(--night-hint);
+}
+
+.leaveActions {
+  display: flex;
+  gap: 24px;
+}
+
+.leaveStay,
+.leaveLeave {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 12px 6px;
+  min-height: var(--tap);
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.leaveLeave {
+  color: var(--accent);
+}
+
+.errorBanner {
+  position: absolute;
+  bottom: 128px;
+  left: 28px;
+  right: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.errorBanner.light {
+  color: var(--muted);
+}
+
+.errorBanner.night {
+  color: var(--night-hint);
+}
+
+.retry {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 6px 10px;
+  min-height: var(--tap);
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--accent);
+}

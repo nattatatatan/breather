@@ -1,0 +1,75 @@
+.title {
+  margin-bottom: 26px;
+}
+
+.conditions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--divider);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+
+.conditionCell {
+  background: var(--surface);
+  padding: 15px 14px;
+}
+
+.conditionLabel {
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.conditionValue {
+  margin-top: 4px;
+  font-family: var(--serif);
+  font-size: 21px;
+  color: var(--ink);
+}
+
+.returns {
+  margin: 0 0 26px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.note {
+  margin-bottom: 8px;
+}
+
+.error {
+  margin: 0 0 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--accent);
+}
+
+.askCircle {
+  appearance: none;
+  align-self: center;
+  margin-top: 18px;
+  min-height: var(--tap);
+  padding: 0 12px;
+  background: none;
+  border: none;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.askCircle:hover {
+  color: var(--accent);
+}
+
+.askCircle:disabled {
+  color: var(--faint);
+  cursor: default;
+}

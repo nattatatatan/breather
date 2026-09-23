@@ -6,7 +6,6 @@ from app.db.db import get_db
 from app.models.meditation_element import MeditationElement
 from app.schemas.meditation_element import MeditationElementResponse
 
-
 router = APIRouter(
     prefix="/api/elements",
     tags=["meditation-elements"],

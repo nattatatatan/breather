@@ -1,0 +1,144 @@
+.card {
+  position: relative;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.featured {
+  padding: 22px 28px 20px;
+  background: var(--surface-quiet);
+}
+
+/* Full-card link. Painted above the static content (browsers stack positioned elements
+   above in-flow ones), so it catches every click except the inset, which sits above it. */
+.stretch {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.name {
+  font-size: 12px;
+  color: var(--text);
+}
+
+.sep {
+  font-size: 12px;
+  color: var(--faint);
+}
+
+.tenure {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.age {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 22px;
+  line-height: 1.26;
+  font-weight: 400;
+  color: var(--ink);
+  text-wrap: pretty;
+  position: relative;
+}
+
+.titleLarge {
+  font-size: 25px;
+  line-height: 1.24;
+  margin-bottom: 8px;
+}
+
+.excerpt {
+  margin: 0 0 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+  position: relative;
+}
+
+.inset {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+}
+
+.inset:hover .chevron {
+  color: var(--accent);
+}
+
+.insetText {
+  flex-grow: 1;
+}
+
+.insetLine {
+  display: block;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+
+.insetSub {
+  display: block;
+  margin-top: 2px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--faint);
+}
+
+.metaRow {
+  position: relative;
+  display: flex;
+  gap: 18px;
+  margin-top: 14px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.tagsRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.tagText {
+  align-self: center;
+}
+
+.pill {
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 11.5px;
+  color: var(--muted);
+}

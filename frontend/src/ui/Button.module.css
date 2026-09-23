@@ -1,0 +1,39 @@
+.button {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: var(--button-h);
+  margin: 0;
+  background: none;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-button);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  /* Letter-spacing adds trailing space; pad the left to keep the label optically centred. */
+  padding: 0 0 0 0.26em;
+  text-transform: uppercase;
+  color: var(--ink);
+  cursor: pointer;
+  transition: color var(--dur-quick) ease, border-color var(--dur-quick) ease;
+}
+
+.button:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  color: var(--faint);
+  border-color: var(--line);
+  cursor: default;
+}
+
+.night {
+  color: var(--night-hint);
+  border-color: var(--night-text);
+}

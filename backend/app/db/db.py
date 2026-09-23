@@ -3,6 +3,7 @@ from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 from app.config.config import settings
 
+
 def get_db():
     db = SessionLocal()
 

@@ -13,7 +13,7 @@ class SessionElement(Base):
             "element_id",
             name="uq_session_element",
         ),
-    )   
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
