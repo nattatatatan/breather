@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Docker PosgreSQL",
+            "type": "shell",
+            "command": "docker exec -it breather-db psql -U app -d breather",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }, 
+        {
+            "label": "Get user access token from Supabase Auth",
+            "type": "shell",
+            "command": "curl -X POST \"https://gzezotkraugdgtwhvuni.supabase.co/auth/v1/token?grant_type=password\" -H \"apikey: sb_publishable_XG-oQEu85MP0nGQnTatTsA_utfL8P05\" -H \"Content-Type: application/json\" -d '{\"email\":\"nattatatatan@gmail.com\",\"password\":\"100143\"}' | python3 -c \"import sys,json; print(json.load(sys.stdin)['access_token'])\"",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
+    ]
+}
