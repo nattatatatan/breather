@@ -1,11 +1,17 @@
 import { Link } from 'react-router'
+
 import { paths } from '@/app/routes'
 import { useMe } from '@/api/me'
+
 import { useAuth } from '@/auth/AuthProvider'
+
 import styles from './YouScreen.module.css'
 
+import { Eyebrow, Title } from '@/ui/Text'
 import { Screen } from '@/ui/Screen'
 import { ErrorState, Loading } from '@/ui/States'
+import { TopBar } from '@/ui/TopBar'
+
 
 
 
@@ -33,6 +39,23 @@ export function YouScreen() {
 
   return (
     <Screen>
+
+      <TopBar
+        back={paths.home}
+        gap={18}
+        right={<Eyebrow>You</Eyebrow>}
+      />
+
+      <div className={styles.header}>
+        <Title size={42} style={{ marginBottom: 0 }}>
+          You
+        </Title>
+
+        <p className={styles.subtitle}>
+          Your practice, your history, and your presence.
+        </p>
+      </div>
+
       <Link to={paths.youPractice} className={styles.card}>
         <span className={styles.label}>My practice</span>
 

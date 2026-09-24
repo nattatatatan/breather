@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
           { path: 'sit', element: <SessionScreen /> },
           { path: 'sit/complete/:sessionId', element: <SessionCompleteScreen /> },
           { path: 'you', element: <YouScreen /> },
-          { path: 'youPractice', element: <PracticeScreen />},
+          { path: 'you/practice', element: <PracticeScreen />},
           { path: 'circle', element: <DiscussionScreen /> },
           { path: 'circle/hours', element: <HoursScreen /> },
           { path: 'circle/new', element: <ComposeScreen /> },

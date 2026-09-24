@@ -8,7 +8,7 @@ export const paths = {
   sit: '/sit',
   sessionComplete: (sessionId: number) => `/sit/complete/${sessionId}`,
   you: '/you',
-    youPractice: 'you/practice',
+    youPractice: '/you/practice',
   circle: '/circle',
   hours: '/circle/hours',
   compose: (sessionId?: number) => (sessionId ? `/circle/new?session=${sessionId}` : '/circle/new'),

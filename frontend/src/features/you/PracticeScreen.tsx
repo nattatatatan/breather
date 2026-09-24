@@ -105,7 +105,7 @@ export function PracticeScreen() {
 
   return (
     <Screen>
-      <TopBar back={paths.home} gap={18} right={<Eyebrow>You</Eyebrow>} />
+      <TopBar back={paths.you} gap={18} right={<Eyebrow>You</Eyebrow>} />
 
       <div className={styles.header}>
         <PracticeFigure slug={elementSlug} size={82} />
