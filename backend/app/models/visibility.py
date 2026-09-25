@@ -1,6 +1,6 @@
 from enum import Enum
 
 
-class SessionVisibility(str, Enum):
+class Visibility(str, Enum):
     PRIVATE = "private"
     COMMUNITY = "community"

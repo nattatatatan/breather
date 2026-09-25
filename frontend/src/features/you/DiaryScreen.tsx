@@ -32,9 +32,10 @@ export function DiaryScreen() {
     )
   }
 
-  if (sessionsQuery.isError ||
-      elementsQuery.isError ||
-      intentsQuery.isError
+  if (
+    sessionsQuery.isError ||
+    elementsQuery.isError ||
+    intentsQuery.isError
   ) {
     return (
       <Screen>

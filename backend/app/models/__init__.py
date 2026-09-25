@@ -8,7 +8,7 @@ from app.models.practice_profile import PracticeProfile
 from app.models.reply import Reply
 from app.models.reply_helpful import ReplyHelpful
 from app.models.session_element import SessionElement
-from app.models.session_visibility import SessionVisibility
+from backend.app.models.visibility import Visibility
 from app.models.shared_sitting_view import SharedSittingView
 from app.models.sound import Sound
 from app.models.thread import Thread
@@ -25,7 +25,7 @@ __all__ = [
     "Reply",
     "ReplyHelpful",
     "SessionElement",
-    "SessionVisibility",
+    "Visibility",
     "SharedSittingView",
     "Sound",
     "Thread",

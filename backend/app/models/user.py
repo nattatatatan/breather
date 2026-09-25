@@ -2,9 +2,11 @@ from datetime import date, datetime
 
 from sqlalchemy import Date, DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Enum as SQLEnum
 
 from app.db.db import Base
 
+from app.models.visibility import Visibility
 
 class User(Base):
     __tablename__ = "users"
@@ -41,6 +43,12 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
+    )
+
+    visibility: Mapped[Visibility] = mapped_column(
+        SQLEnum(Visibility),
+        nullable=False,
+        default=Visibility.PUBLIC,
     )
 
     practice_profile = relationship(

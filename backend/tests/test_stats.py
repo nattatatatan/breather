@@ -8,7 +8,7 @@ from app.models.meditation_element import MeditationElement
 from app.models.meditation_session import MeditationSession
 from app.models.practice_mode import PracticeMode
 from app.models.session_element import SessionElement
-from app.models.session_visibility import SessionVisibility
+from backend.app.models.visibility import Visibility
 from app.models.sound import Sound
 
 
@@ -31,7 +31,7 @@ def _insert_session(
     duration_seconds: int,
     mode: PracticeMode = PracticeMode.SAMATHA,
     element_slugs: tuple[str, ...] = ("breath",),
-    visibility: SessionVisibility = SessionVisibility.PRIVATE,
+    visibility: Visibility = Visibility.PRIVATE,
     completed: bool = True,
 ) -> MeditationSession:
     session = MeditationSession(
@@ -68,7 +68,7 @@ def test_stats_totals_longest_and_shared_count(client, db):
         user_id,
         started_at=now - timedelta(days=1),
         duration_seconds=1800,
-        visibility=SessionVisibility.COMMUNITY,
+        visibility=Visibility.COMMUNITY,
     )
     # An incomplete session must not count at all.
     _insert_session(db, user_id, started_at=now, duration_seconds=900, completed=False)

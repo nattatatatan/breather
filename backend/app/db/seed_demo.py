@@ -21,7 +21,7 @@ from app.models.practice_mode import PracticeMode
 from app.models.reply import Reply
 from app.models.reply_helpful import ReplyHelpful
 from app.models.session_element import SessionElement
-from app.models.session_visibility import SessionVisibility
+from backend.app.models.visibility import Visibility
 from app.models.sound import Sound
 from app.models.thread import Thread
 from app.models.user import User
@@ -97,7 +97,7 @@ def _add_session(
     intent_slug: str | None = None,
     environment: Environment = Environment.STILL,
     sound: Sound = Sound.SILENT,
-    visibility: SessionVisibility = SessionVisibility.PRIVATE,
+    visibility: Visibility = Visibility.PRIVATE,
     returns: list[int] | None = None,
     note: str | None = None,
     completed: bool = True,
@@ -402,7 +402,7 @@ def seed() -> None:
                 mode=PracticeMode.SAMATHA,
                 element_slugs=["breath"],
                 intent_slug="kindness",
-                visibility=SessionVisibility.COMMUNITY,
+                visibility=Visibility.COMMUNITY,
                 returns=[95, 240, 530],
                 note=(
                     "Said the phrases for my sister and felt nothing for most "

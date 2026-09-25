@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 
 from app.models.environment import Environment
 from app.models.practice_mode import PracticeMode
-from app.models.session_visibility import SessionVisibility
+from backend.app.models.visibility import Visibility
 from app.models.sound import Sound
 
 
@@ -21,7 +21,7 @@ class MeditationSessionCreate(BaseModel):
 class MeditationSessionUpdate(BaseModel):
     note: str | None = Field(default=None, max_length=2000)
     feeling: str | None = None
-    visibility: SessionVisibility | None = None
+    visibility: Visibility | None = None
 
 
 class MeditationSessionComplete(BaseModel):
@@ -43,7 +43,7 @@ class MeditationSessionResponse(BaseModel):
     returns: list[int]
     note: str | None
     feeling: str | None
-    visibility: SessionVisibility
+    visibility: Visibility
     thread_id: int | None
 
     model_config = {

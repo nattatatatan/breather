@@ -8,7 +8,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.db import Base
 from app.models.environment import Environment
 from app.models.practice_mode import PracticeMode
-from app.models.session_visibility import SessionVisibility
+from backend.app.models.visibility import Visibility
 from app.models.sound import Sound
 
 
@@ -86,10 +86,10 @@ class MeditationSession(Base):
         nullable=True,
     )
 
-    visibility: Mapped[SessionVisibility] = mapped_column(
-        SQLEnum(SessionVisibility),
+    visibility: Mapped[Visibility] = mapped_column(
+        SQLEnum(Visibility),
         nullable=False,
-        default=SessionVisibility.PRIVATE,
+        default=Visibility.PUBLIC,
     )
 
     user = relationship("User")

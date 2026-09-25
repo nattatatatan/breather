@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from app.models.meditation_session import MeditationSession
 from app.models.practice_mode import PracticeMode
 from app.models.session_element import SessionElement
-from app.models.session_visibility import SessionVisibility
+from backend.app.models.visibility import Visibility
 from app.schemas.me import ByElementItem, ModeSplitItem, PracticeStats
 from app.services.tz import resolve_zone
 
@@ -42,7 +42,7 @@ def compute_stats(db: Session, user_id: int, tz: str) -> PracticeStats:
     longest_seconds = max((s.duration_seconds or 0 for s in sessions), default=0)
     session_count = len(sessions)
     shared_count = sum(
-        1 for s in sessions if s.visibility == SessionVisibility.COMMUNITY
+        1 for s in sessions if s.visibility == Visibility.COMMUNITY
     )
 
     now_local_dt = datetime.now(zone)

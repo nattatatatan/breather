@@ -7,7 +7,7 @@ from app.models.meditation_element import MeditationElement
 from app.models.meditation_session import MeditationSession
 from app.models.practice_mode import PracticeMode
 from app.models.session_element import SessionElement
-from app.models.session_visibility import SessionVisibility
+from backend.app.models.visibility import Visibility
 from app.models.sound import Sound
 from app.services.circle import LONG_PRACTITIONER_SECONDS
 
@@ -31,7 +31,7 @@ def _insert_completed_session(
     duration_seconds: int,
     mode: PracticeMode = PracticeMode.SAMATHA,
     element_slugs: tuple[str, ...] = ("breath",),
-    visibility: SessionVisibility = SessionVisibility.PRIVATE,
+    visibility: Visibility = Visibility.PRIVATE,
     returns: list[int] | None = None,
     note: str | None = None,
 ) -> MeditationSession:
@@ -358,7 +358,7 @@ def test_practitioner_endpoint_exposes_shared_sittings_and_open_thread(client, d
         db, target_id,
         started_at=datetime.now(timezone.utc) - timedelta(days=1),
         duration_seconds=1500,
-        visibility=SessionVisibility.COMMUNITY,
+        visibility=Visibility.COMMUNITY,
     )
     thread = client.post(
         "/api/circle/threads", json={"title": "My open question to circle", "body": "b"}
@@ -399,7 +399,7 @@ def test_hours_ranking_me_outside_top5_and_sitting_now(client, db):
         sound=Sound.SILENT,
         timer_visible=False,
         returns=[],
-        visibility=SessionVisibility.PRIVATE,
+        visibility=Visibility.PRIVATE,
     )
     db.add(session)
     db.commit()
