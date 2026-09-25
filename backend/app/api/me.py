@@ -25,7 +25,7 @@ def _to_me_response(user: User) -> MeResponse:
         location=user.location,
         bio=user.bio,
         created_at=user.created_at,
-        visibility=user.visibility
+        visibility=user.visibility,
         practice=practice,
     )
 
@@ -49,6 +49,8 @@ def update_me(
         current_user.location = data.location
     if data.bio is not None:
         current_user.bio = data.bio
+    if data.visibility is not None:
+        current_user.visibility = data.visibility
 
     db.commit()
     db.refresh(current_user)

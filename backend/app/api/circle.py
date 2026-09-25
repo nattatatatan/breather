@@ -364,8 +364,15 @@ def get_shared_sitting(
     current_user: User = Depends(get_current_user),
 ):
     session = db.get(MeditationSession, session_id)
-    # place holder will later add condition if session is attached to a thread
+
     if session is None:
+        raise HTTPException(status_code=404, detail="Sitting not found.")
+
+    thread = db.scalar(
+        select(Thread).where(Thread.session_id == session.id)
+    )
+
+    if thread is None:
         raise HTTPException(status_code=404, detail="Sitting not found.")
 
     if session.user_id != current_user.id:
@@ -375,10 +382,6 @@ def get_shared_sitting(
     element_id = None
     if session.elements:
         element_id = min(session.elements, key=lambda e: e.id).element_id
-
-    thread = db.scalar(
-        select(Thread).where(Thread.session_id == session.id)
-    )
 
     author = author_summary(db, session.user_id)
 
@@ -415,7 +418,9 @@ def get_practitioner(
     stats = compute_stats(db, user_id, tz)
 
     shared_sessions = db.scalars(
-        select(MeditationSession).where(
+        select(MeditationSession)
+        .join(Thread, Thread.session_id == MeditationSession.id)
+        .where(
             MeditationSession.user_id == user_id,
             MeditationSession.completed_at.isnot(None),
         )

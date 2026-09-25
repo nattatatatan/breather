@@ -18,7 +18,7 @@ Enums
 | Name | Values |
 |---|---|
 | `PracticeMode` | `samatha`, `vipassana` |
-| `SessionVisibility` | `private`, `community` |
+| `Visibility` | `private`, `public` |
 | `Environment` | `still`, `dissolve` (`dissolve` only meaningful for `fire`) |
 | `Sound` | `silent`, `bell` |
 
@@ -192,7 +192,7 @@ Used to discard a sitting abandoned in the first moments (client decides; e.g. h
 ### `GET /api/circle/threads?limit=20&offset=0` -> `ThreadSummary[]` (newest first)
 
 ### `POST /api/circle/threads` body `{ title, body, mode?, element_id?, session_id? }` -> `ThreadDetail` (201)
-`title` 4..140, `body` 1..5000. `session_id` must be the caller's own **completed** session not attached elsewhere; attaching sets its `visibility=community`.
+`title` 4..140, `body` 1..5000. `session_id` must be the caller's own **completed** session not attached elsewhere; attaching sets its `visibility=public`.
 
 ### `ThreadDetail` = `ThreadSummary` + `{ body: string, replies: Reply[] }` (replies oldest first)
 
@@ -219,7 +219,7 @@ Used to discard a sitting abandoned in the first moments (client decides; e.g. h
 Idempotent. Cannot mark your own reply (403).
 
 ### `GET /api/circle/shared/{session_id}` -> `SharedSitting`
-404 unless `visibility=community`. When the viewer is not the owner, records a view `(viewer_id, session_id, viewed_at)`.
+404 unless `visibility=public`. When the viewer is not the owner, records a view `(viewer_id, session_id, viewed_at)`.
 ```json
 {
   "session_id": 42,

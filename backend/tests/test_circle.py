@@ -1,6 +1,8 @@
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
+import pytest
 
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from app.models.environment import Environment
 from app.models.meditation_element import MeditationElement
@@ -10,6 +12,8 @@ from app.models.session_element import SessionElement
 from app.models.visibility import Visibility
 from app.models.sound import Sound
 from app.services.circle import LONG_PRACTITIONER_SECONDS
+from app.models.user import User
+from app.models.thread import Thread
 
 
 def _user_id(client, sub: str, display_name: str | None = None) -> int:
@@ -89,9 +93,7 @@ def test_create_thread_with_attached_completed_session(client):
 
     # Attaching sets the session's visibility to community.
     session_after = client.get(f"/api/sessions/{session_resp['id']}").json()
-    assert session_after["visibility"] == "community"
     assert session_after["thread_id"] == body["id"]
-
 
 def test_create_thread_rejects_incomplete_session(client):
     client.set_user("u-thread-incomplete")
@@ -419,3 +421,152 @@ def test_hours_me_is_null_with_zero_seconds(client):
     client.set_user("u-hours-zero")
     hours = client.get("/api/circle/hours").json()
     assert hours["me"] is None
+
+##########################################################################################################################################
+
+@pytest.fixture
+def user(db: Session) -> User:
+    user = User(
+        auth_provider_id="test-user",
+        display_name="Test User",
+        practising_since=date.today(),
+        visibility=Visibility.PRIVATE,
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
+
+def create_completed_session(
+    db: Session,
+    user: User,
+    visibility: Visibility = Visibility.PRIVATE,
+) -> MeditationSession:
+    session = MeditationSession(
+        user_id=user.id,
+        mode=PracticeMode.SAMATHA,
+        started_at=datetime.now(timezone.utc) - timedelta(minutes=20),
+        completed_at=datetime.now(timezone.utc),
+        duration_seconds=1200,
+        visibility=visibility,
+    )
+
+    db.add(session)
+    db.commit()
+    db.refresh(session)
+
+    return session
+
+def create_thread(
+    db: Session,
+    user: User,
+    session: MeditationSession | None = None,
+) -> Thread:
+    thread = Thread(
+        author_id=user.id,
+        title="Test thread",
+        body="Test body",
+        mode=session.mode if session else PracticeMode.SAMATHA,
+        session_id=session.id if session else None,
+    )
+
+    db.add(thread)
+    db.commit()
+    db.refresh(thread)
+
+    return thread
+
+# Sharing does not change visibility
+def test_sharing_session_does_not_change_visibility(
+    db: Session,
+    user: User,
+) -> None:
+    session = create_completed_session(
+        db,
+        user,
+        visibility=Visibility.PRIVATE,
+    )
+
+    create_thread(db, user, session)
+
+    db.refresh(session)
+
+    assert session.visibility == Visibility.PRIVATE
+
+# Private sessions can be shared
+def test_private_session_can_be_shared(
+    db: Session,
+    user: User,
+) -> None:
+    session = create_completed_session(
+        db,
+        user,
+        visibility=Visibility.PRIVATE,
+    )
+
+    thread = create_thread(
+        db,
+        user,
+        session,
+    )
+
+    assert thread.session_id == session.id
+    assert session.visibility == Visibility.PRIVATE
+
+def test_unshared_session_is_not_circle_sitting(
+    client,
+    db: Session,
+    user: User,
+) -> None:
+    session = create_completed_session(
+        db,
+        user,
+        visibility=Visibility.PUBLIC,
+    )
+
+    client.set_user(user.auth_provider_id)
+
+    response = client.get(
+        f"/api/circle/shared/{session.id}"
+    )
+
+    assert response.status_code == 404
+
+def test_practitioner_only_returns_shared_sessions(
+    client,
+    db: Session,
+    user: User,
+) -> None:
+    unshared = create_completed_session(
+        db,
+        user,
+        visibility=Visibility.PRIVATE,
+    )
+
+    shared = create_completed_session(
+        db,
+        user,
+        visibility=Visibility.PRIVATE,
+    )
+
+    create_thread(
+        db,
+        user,
+        shared,
+    )
+
+    client.set_user(user.auth_provider_id)
+
+    response = client.get(
+        f"/api/circle/practitioners/{user.id}"
+    )
+
+    assert response.status_code == 200
+
+    session_ids = {
+        sitting["session_id"]
+        for sitting in response.json()["shared_sittings"]
+    }
+
+    assert shared.id in session_ids
+    assert unshared.id not in session_ids
