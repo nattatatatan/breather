@@ -35,7 +35,6 @@ export const router = createBrowserRouter([
           { path: 'you', element: <YouScreen /> },
           { path: 'you/practice', element: <PracticeScreen />},
           { path: 'you/diary', element: <DiaryScreen/>},
-          { path: 'you/diary/:sessionId', element: <DiarySessionScreen /> },
           { path: 'circle', element: <DiscussionScreen /> },
           { path: 'circle/hours', element: <HoursScreen /> },
           { path: 'circle/new', element: <ComposeScreen /> },
