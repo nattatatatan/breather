@@ -1,5 +1,4 @@
 from datetime import date, datetime, timedelta, timezone
-import pytest
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -13,7 +12,6 @@ from app.models.visibility import Visibility
 from app.models.sound import Sound
 from app.services.circle import LONG_PRACTITIONER_SECONDS
 from app.models.user import User
-from app.models.thread import Thread
 
 
 def _user_id(client, sub: str, display_name: str | None = None) -> int:
@@ -91,9 +89,10 @@ def test_create_thread_with_attached_completed_session(client):
     assert body["attached"]["return_count"] == 0
     assert body["reply_count"] == 0
 
-    # Attaching sets the session's visibility to public.
+    # Attaching does not change the session's diary visibility.
     session_after = client.get(f"/api/sessions/{session_resp['id']}").json()
     assert session_after["thread_id"] == body["id"]
+    assert session_after["visibility"] == "private"
 
 def test_create_thread_rejects_incomplete_session(client):
     client.set_user("u-thread-incomplete")
@@ -263,28 +262,6 @@ def test_helpful_mark_idempotent_and_own_reply_forbidden(client):
     removed_again = client.delete(f"/api/circle/replies/{other_reply['id']}/helpful")
     assert removed_again.json() == {"helpful_count": 0, "marked_helpful_by_me": False}
 
-
-def test_shared_sitting_requires_public_visibility(client):
-    client.set_user("u-shared-private-owner")
-    element_id = client.get("/api/elements").json()[0]["id"]
-    session_resp = client.post(
-        "/api/sessions",
-        json={
-            "element_ids": [element_id],
-            "mode": "samatha",
-            "planned_seconds": 1200,
-            "environment": "still",
-            "sound": "silent",
-            "timer_visible": False,
-        },
-    ).json()
-    client.post(f"/api/sessions/{session_resp['id']}/complete", json={"returns": []})
-
-    client.set_user("u-shared-private-viewer")
-    resp = client.get(f"/api/circle/shared/{session_resp['id']}")
-    assert resp.status_code == 404
-
-
 def test_shared_sitting_records_view_and_enables_read_context(client):
     client.set_user("u-shared-owner")
     element_id = client.get("/api/elements").json()[0]["id"]
@@ -421,60 +398,6 @@ def test_hours_me_is_null_with_zero_seconds(client):
     client.set_user("u-hours-zero")
     hours = client.get("/api/circle/hours").json()
     assert hours["me"] is None
-
-##########################################################################################################################################
-
-@pytest.fixture
-def user(db: Session) -> User:
-    user = User(
-        auth_provider_id="test-user",
-        display_name="Test User",
-        practising_since=date.today(),
-        visibility=Visibility.PRIVATE,
-    )
-    db.add(user)
-    db.commit()
-    db.refresh(user)
-    return user
-
-def create_completed_session(
-    db: Session,
-    user: User,
-    visibility: Visibility = Visibility.PRIVATE,
-) -> MeditationSession:
-    session = MeditationSession(
-        user_id=user.id,
-        mode=PracticeMode.SAMATHA,
-        started_at=datetime.now(timezone.utc) - timedelta(minutes=20),
-        completed_at=datetime.now(timezone.utc),
-        duration_seconds=1200,
-        visibility=visibility,
-    )
-
-    db.add(session)
-    db.commit()
-    db.refresh(session)
-
-    return session
-
-def create_thread(
-    db: Session,
-    user: User,
-    session: MeditationSession | None = None,
-) -> Thread:
-    thread = Thread(
-        author_id=user.id,
-        title="Test thread",
-        body="Test body",
-        mode=session.mode if session else PracticeMode.SAMATHA,
-        session_id=session.id if session else None,
-    )
-
-    db.add(thread)
-    db.commit()
-    db.refresh(thread)
-
-    return thread
 
 # Sharing does not change visibility
 def test_sharing_session_does_not_change_visibility(

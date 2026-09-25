@@ -2,9 +2,17 @@ import os
 import subprocess
 import sys
 from pathlib import Path
+from datetime import date, datetime, timedelta, timezone
 
 import pytest
 from sqlalchemy import text
+from sqlalchemy.orm import Session
+
+from app.models.meditation_session import MeditationSession
+from app.models.practice_mode import PracticeMode
+from app.models.visibility import Visibility
+from app.models.user import User
+from app.models.thread import Thread
 
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 TEST_DB_NAME = "stay_test"
@@ -119,3 +127,56 @@ def client():
     yield test_client
 
     app.dependency_overrides.pop(get_current_user_claims, None)
+
+
+@pytest.fixture
+def user(db: Session) -> User:
+    user = User(
+        auth_provider_id="test-user",
+        display_name="Test User",
+        practising_since=date.today(),
+        visibility=Visibility.PRIVATE,
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
+
+def create_completed_session(
+    db: Session,
+    user: User,
+    visibility: Visibility = Visibility.PRIVATE,
+) -> MeditationSession:
+    session = MeditationSession(
+        user_id=user.id,
+        mode=PracticeMode.SAMATHA,
+        started_at=datetime.now(timezone.utc) - timedelta(minutes=20),
+        completed_at=datetime.now(timezone.utc),
+        duration_seconds=1200,
+        visibility=visibility,
+    )
+
+    db.add(session)
+    db.commit()
+    db.refresh(session)
+
+    return session
+
+def create_thread(
+    db: Session,
+    user: User,
+    session: MeditationSession | None = None,
+) -> Thread:
+    thread = Thread(
+        author_id=user.id,
+        title="Test thread",
+        body="Test body",
+        mode=session.mode if session else PracticeMode.SAMATHA,
+        session_id=session.id if session else None,
+    )
+
+    db.add(thread)
+    db.commit()
+    db.refresh(thread)
+
+    return thread
