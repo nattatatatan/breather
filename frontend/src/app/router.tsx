@@ -14,6 +14,8 @@ import { SessionCompleteScreen } from '@/features/session/SessionCompleteScreen'
 import { SessionScreen } from '@/features/session/SessionScreen'
 import { YouScreen } from '@/features/you/YouScreen'
 import { PracticeScreen } from '@/features/you/PracticeScreen'
+import { DiaryScreen } from '@/features/you/DiaryScreen'
+import { DiarySessionScreen } from '@/features/you/DiarySessionScreen'
 import { RequireAuth } from './RequireAuth'
 import { RootLayout } from './RootLayout'
 
@@ -33,6 +35,8 @@ export const router = createBrowserRouter([
           { path: 'sit/complete/:sessionId', element: <SessionCompleteScreen /> },
           { path: 'you', element: <YouScreen /> },
           { path: 'you/practice', element: <PracticeScreen />},
+          { path: 'you/diary', element: <DiaryScreen/>},
+          { path: 'you/diary/:sessionId', element: <DiarySessionScreen /> },
           { path: 'circle', element: <DiscussionScreen /> },
           { path: 'circle/hours', element: <HoursScreen /> },
           { path: 'circle/new', element: <ComposeScreen /> },

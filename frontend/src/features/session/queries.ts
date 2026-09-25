@@ -24,6 +24,19 @@ export function useSession(id: number | undefined) {
   })
 }
 
+export function useSessions(
+  params: {
+    limit?: number
+    offset?: number
+    completed?: boolean
+  } = {}
+) {
+  return useQuery({
+    queryKey: [...queryKeys.sessions, params] as const,
+    queryFn: () => sessionsApi.list(params),
+  })
+}
+
 export function useCreateSession(options: { onMutate?: () => void } = {}) {
   return useMutation({ mutationFn: (body: SessionCreate) => sessionsApi.create(body), onMutate: options.onMutate })
 }
