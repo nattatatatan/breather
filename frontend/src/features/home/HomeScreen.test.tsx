@@ -30,7 +30,7 @@ function renderHome() {
 
 describe('HomeScreen', () => {
   it('Begin goes to Mode when no practice profile exists', async () => {
-    me = { id: 1, display_name: 'Mai', practising_since: '2025-01-01', location: null, bio: null, created_at: '2026-01-01T00:00:00Z', practice: null }
+    me = { id: 1, display_name: 'Mai', practising_since: '2025-01-01', location: null, bio: null, created_at: '2026-01-01T00:00:00Z', practice: null, visibility: 'public' }
     renderHome()
     const begin = await screen.findByRole('link', { name: 'Begin' })
     expect(begin).toHaveAttribute('href', '/practice/mode')
@@ -45,6 +45,7 @@ describe('HomeScreen', () => {
       bio: null,
       created_at: '2026-01-01T00:00:00Z',
       practice: { mode: 'samatha', intent_id: 1, element_id: 6, environment: 'dissolve', duration_seconds: 1800, sound: 'silent', timer_visible: false },
+      visibility: 'public'
     }
     renderHome()
     const begin = await screen.findByRole('link', { name: 'Begin' })

@@ -1,7 +1,7 @@
 // TypeScript mirror of docs/api-contract.md. Keep the two in lockstep.
 
 export type PracticeMode = 'samatha' | 'vipassana'
-export type SessionVisibility = 'private' | 'community'
+export type Visibility = 'private' | 'public'
 export type Environment = 'still' | 'dissolve'
 export type Sound = 'silent' | 'bell'
 
@@ -46,6 +46,7 @@ export interface Me {
   bio: string | null
   created_at: Timestamp
   practice: PracticeProfile | null
+  visibility: Visibility
 }
 
 export interface MeUpdate {
@@ -53,6 +54,7 @@ export interface MeUpdate {
   practising_since?: IsoDate
   location?: string | null
   bio?: string | null
+  visibility?: Visibility
 }
 
 export interface PracticeStats {
@@ -81,7 +83,7 @@ export interface Session {
   returns: number[]
   note: string | null
   feeling: string | null
-  visibility: SessionVisibility
+  visibility: Visibility
   thread_id: number | null
 }
 
@@ -98,7 +100,7 @@ export interface SessionCreate {
 export interface SessionUpdate {
   note?: string | null
   feeling?: string | null
-  visibility?: SessionVisibility
+  visibility?: Visibility
 }
 
 export interface AuthorSummary {

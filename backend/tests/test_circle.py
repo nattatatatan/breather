@@ -91,7 +91,7 @@ def test_create_thread_with_attached_completed_session(client):
     assert body["attached"]["return_count"] == 0
     assert body["reply_count"] == 0
 
-    # Attaching sets the session's visibility to community.
+    # Attaching sets the session's visibility to public.
     session_after = client.get(f"/api/sessions/{session_resp['id']}").json()
     assert session_after["thread_id"] == body["id"]
 
@@ -264,7 +264,7 @@ def test_helpful_mark_idempotent_and_own_reply_forbidden(client):
     assert removed_again.json() == {"helpful_count": 0, "marked_helpful_by_me": False}
 
 
-def test_shared_sitting_requires_community_visibility(client):
+def test_shared_sitting_requires_public_visibility(client):
     client.set_user("u-shared-private-owner")
     element_id = client.get("/api/elements").json()[0]["id"]
     session_resp = client.post(
@@ -360,7 +360,7 @@ def test_practitioner_endpoint_exposes_shared_sittings_and_open_thread(client, d
         db, target_id,
         started_at=datetime.now(timezone.utc) - timedelta(days=1),
         duration_seconds=1500,
-        visibility=Visibility.COMMUNITY,
+        visibility=Visibility.PUBLIC,
     )
     thread = client.post(
         "/api/circle/threads", json={"title": "My open question to circle", "body": "b"}
