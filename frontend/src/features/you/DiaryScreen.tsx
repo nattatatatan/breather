@@ -1,11 +1,13 @@
 import { paths } from '@/app/routes'
+import { Link } from 'react-router'
 import { useSessions } from '@/features/session/queries'
 import { useElements, useIntents } from '@/api/catalog'
-import { clock } from '@/lib/format'
+import { clock, weekdayTime } from '@/lib/format'
 import { Screen } from '@/ui/Screen'
 import { ErrorState, Loading } from '@/ui/States'
 import { Eyebrow, Title } from '@/ui/Text'
 import { TopBar } from '@/ui/TopBar'
+import styles from './DiaryScreen.module.css'
 import {
   intentLabel,
   modeLabel,
@@ -68,27 +70,40 @@ export function DiaryScreen() {
       {sessions.length === 0 ? (
         <p>No sittings yet.</p>
       ) : (
-        <div>
+        <div className={styles.list}>
           {sessions.map((session) => (
-            <div key={session.id}>
-                <div>{modeLabel(session.mode)}</div>
-
-                <div>
-                {session.element_ids.map((elementId) => (
-                    <span key={elementId}>
-                        {objectLabel(elements, elementId)}
-                    </span>
-                    ))}
+            <Link
+              key={session.id}
+              to={paths.youDiarySession(session.id)}
+              className={styles.session}
+            >
+              <div className={styles.sessionMain}>
+                <div className={styles.sessionDate}>
+                  {weekdayTime(session.started_at)}
                 </div>
 
-                <div>
-                {session.intent_id != null
-                    ? intentLabel(intents, session.intent_id)
-                    : '-'}
-                </div>      
+                <div className={styles.sessionPractice}>
+                  {modeLabel(session.mode)} ·{' '}
+                  {session.element_ids
+                    .map((elementId) => objectLabel(elements, elementId))
+                    .join(' + ')}
+                </div>
 
-                <div>{session.duration_seconds != null && clock(session.duration_seconds)}</div>
-            </div>
+                {session.intent_id != null && (
+                  <div className={styles.sessionIntent}>
+                    {intentLabel(intents, session.intent_id)}
+                  </div>
+                )}
+              </div>
+
+              <div className={styles.sessionMeta}>
+                {session.duration_seconds != null && (
+                  <span>{clock(session.duration_seconds)}</span>
+                )}
+              </div>
+
+              <span className={styles.arrow}>→</span>
+            </Link>
           ))}
         </div>
       )}

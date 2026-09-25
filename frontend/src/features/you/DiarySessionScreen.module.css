@@ -1,0 +1,56 @@
+.header {
+  margin-bottom: 32px;
+}
+
+.practice {
+  padding: 20px 0;
+  border-top: 1px solid var(--divider);
+  border-bottom: 1px solid var(--divider);
+}
+
+.primary {
+  font-family: var(--serif);
+  font-size: 28px;
+  line-height: 1.3;
+}
+
+.objects {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.intent {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--faint);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 0;
+}
+
+.detail {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 12px;
+}
+
+.label {
+  color: var(--muted);
+}
+
+.note {
+  margin-top: 20px;
+}
+
+.note p {
+  margin: 10px 0 0;
+  white-space: pre-wrap;
+  font-size: 13px;
+  line-height: 1.7;
+}
