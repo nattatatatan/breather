@@ -9,7 +9,7 @@ from app.db.db import get_db
 from app.models.meditation_session import MeditationSession
 from app.models.reply import Reply as ReplyModel
 from app.models.reply_helpful import ReplyHelpful
-from backend.app.models.visibility import Visibility
+from app.models.visibility import Visibility
 from app.models.thread import Thread
 from app.models.user import User
 from app.schemas.circle import (
@@ -219,10 +219,6 @@ def create_thread(
         session_id=session.id if session is not None else None,
     )
     db.add(thread)
-
-    if session is not None:
-        session.visibility = Visibility.COMMUNITY
-
     db.commit()
     db.refresh(thread)
 
@@ -368,7 +364,8 @@ def get_shared_sitting(
     current_user: User = Depends(get_current_user),
 ):
     session = db.get(MeditationSession, session_id)
-    if session is None or session.visibility != Visibility.COMMUNITY:
+    # place holder will later add condition if session is attached to a thread
+    if session is None:
         raise HTTPException(status_code=404, detail="Sitting not found.")
 
     if session.user_id != current_user.id:
@@ -420,7 +417,6 @@ def get_practitioner(
     shared_sessions = db.scalars(
         select(MeditationSession).where(
             MeditationSession.user_id == user_id,
-            MeditationSession.visibility == Visibility.COMMUNITY,
             MeditationSession.completed_at.isnot(None),
         )
         .order_by(MeditationSession.started_at.desc())

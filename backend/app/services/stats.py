@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from app.models.meditation_session import MeditationSession
 from app.models.practice_mode import PracticeMode
 from app.models.session_element import SessionElement
-from backend.app.models.visibility import Visibility
+from app.models.visibility import Visibility
 from app.schemas.me import ByElementItem, ModeSplitItem, PracticeStats
 from app.services.tz import resolve_zone
 

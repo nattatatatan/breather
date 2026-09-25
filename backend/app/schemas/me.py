@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field
 from app.models.environment import Environment
 from app.models.practice_mode import PracticeMode
 from app.models.sound import Sound
+from app.models.visibility import Visibility
 
 
 class PracticeProfileSchema(BaseModel):
@@ -27,6 +28,7 @@ class MeResponse(BaseModel):
     bio: str | None
     created_at: datetime
     practice: PracticeProfileSchema | None
+    visibility: Visibility
 
     model_config = {"from_attributes": True}
 
@@ -36,6 +38,7 @@ class MeUpdate(BaseModel):
     practising_since: date | None = None
     location: str | None = Field(default=None, max_length=80)
     bio: str | None = Field(default=None, max_length=280)
+    visibility: Visibility | None = None
 
 
 class ModeSplitItem(BaseModel):

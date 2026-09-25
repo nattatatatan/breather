@@ -21,7 +21,7 @@ from app.models.practice_mode import PracticeMode
 from app.models.reply import Reply
 from app.models.reply_helpful import ReplyHelpful
 from app.models.session_element import SessionElement
-from backend.app.models.visibility import Visibility
+from app.models.visibility import Visibility
 from app.models.sound import Sound
 from app.models.thread import Thread
 from app.models.user import User

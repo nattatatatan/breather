@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 
 from app.models.environment import Environment
 from app.models.practice_mode import PracticeMode
-from backend.app.models.visibility import Visibility
+from app.models.visibility import Visibility
 from app.models.sound import Sound
 
 

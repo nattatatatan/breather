@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from app.config.config import settings
 from app.db.db import get_db
 from app.models.user import User
+from app.models.visibility import Visibility
 
 bearer_scheme = HTTPBearer()
 
@@ -94,6 +95,7 @@ def get_current_user(
         display_name=_display_name_from_claims(claims),
         practising_since=now.date(),
         created_at=now,
+        visibility=Visibility.PUBLIC
     )
     db.add(new_user)
 

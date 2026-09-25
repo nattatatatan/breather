@@ -8,7 +8,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.db import Base
 from app.models.environment import Environment
 from app.models.practice_mode import PracticeMode
-from backend.app.models.visibility import Visibility
+from app.models.visibility import Visibility
 from app.models.sound import Sound
 
 

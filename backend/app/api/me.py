@@ -25,6 +25,7 @@ def _to_me_response(user: User) -> MeResponse:
         location=user.location,
         bio=user.bio,
         created_at=user.created_at,
+        visibility=user.visibility
         practice=practice,
     )
 
