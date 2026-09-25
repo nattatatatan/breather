@@ -15,7 +15,6 @@ import { SessionScreen } from '@/features/session/SessionScreen'
 import { YouScreen } from '@/features/you/YouScreen'
 import { PracticeScreen } from '@/features/you/PracticeScreen'
 import { DiaryScreen } from '@/features/you/DiaryScreen'
-import { DiarySessionScreen } from '@/features/you/DiarySessionScreen'
 import { RequireAuth } from './RequireAuth'
 import { RootLayout } from './RootLayout'
 

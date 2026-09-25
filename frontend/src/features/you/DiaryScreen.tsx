@@ -39,8 +39,12 @@ export function DiaryScreen() {
     return (
       <Screen>
         <ErrorState
-          error={sessionsQuery.error}
-          onRetry={() => sessionsQuery.refetch()}
+          error={sessionsQuery.error ?? elementsQuery.error ?? intentsQuery.error}
+          onRetry={() => {
+            sessionsQuery.refetch()
+            elementsQuery.refetch()
+            intentsQuery.refetch()
+          }}
         />
       </Screen>
     )

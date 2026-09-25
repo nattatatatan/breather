@@ -52,19 +52,14 @@ export function PracticeScreen() {
       </Screen>
     )
   }
-  if (meQuery.isError) {
-    return (
-      <Screen>
-        <ErrorState error={meQuery.error} onRetry={() => meQuery.refetch()} />
-      </Screen>
-    )
-  }
-  if (elementsQuery.isError || intentsQuery.isError) {
+  
+  if (meQuery.isError || elementsQuery.isError || intentsQuery.isError) {
     return (
       <Screen>
         <ErrorState
-          error={elementsQuery.error ?? intentsQuery.error}
+          error={meQuery.error ?? elementsQuery.error ?? intentsQuery.error}
           onRetry={() => {
+            void meQuery.refetch()
             void elementsQuery.refetch()
             void intentsQuery.refetch()
           }}

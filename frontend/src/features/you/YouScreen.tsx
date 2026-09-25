@@ -70,17 +70,14 @@ export function YouScreen() {
         <span className={styles.arrow}>→</span>
       </Link>
 
-      <div className={styles.card}>
+      <Link to={paths.youDiary} className={styles.card}>
         <span className={styles.label}>Diary</span>
-
-        <span className={styles.value}>
-          Your sittings
-        </span>
-
+        <span className={styles.value}>Your sittings</span>
         <span className={styles.meta}>
-          Coming next: look back at previous practice.
+          Look back at previous practice.
         </span>
-      </div>
+        <span className={styles.arrow}>→</span>
+      </Link>
 
       <div className={styles.card}>
         <span className={styles.label}>Avatar</span>
